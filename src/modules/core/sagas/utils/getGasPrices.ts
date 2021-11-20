@@ -98,17 +98,21 @@ const fetchGasPrices = async (
       const oneGwei = bigNumberify(10 ** 9);
 
       /*
+       * @TEMP Patch QA Since the blockscout gas oracle has been wonky, so this
+       * increases gas costs so people will not have to manually adjust it
+       */
+      const average = data.average > 2 ? data.average : 2;
+      const fast = data.fast > 2 ? data.fast : 2;
+      /*
        * @NOTE Split the values into integer and remainder
        * (1.22 becomes 1 and 22)
        *
        * The integer part gets multiplied by 1 gwei, while the remainder
        * gets padded with 9 zeros. Everything will be added together.
        */
-      const [averageInteger, averageRemainder = 0] = String(data.average).split(
-        '.',
-      );
+      const [averageInteger, averageRemainder = 0] = String(average).split('.');
       const [slowInteger, slowRemainder = 0] = String(data.slow).split('.');
-      const [fastInteger, fastRemainder = 0] = String(data.fast).split('.');
+      const [fastInteger, fastRemainder = 0] = String(fast).split('.');
 
       return {
         ...defaultGasPrices,
