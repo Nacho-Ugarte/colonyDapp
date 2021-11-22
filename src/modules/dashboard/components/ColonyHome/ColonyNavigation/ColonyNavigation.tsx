@@ -3,6 +3,7 @@ import { defineMessages } from 'react-intl';
 import { Extension } from '@colony/colony-js';
 
 import { useColonyExtensionsQuery, Colony } from '~data/index';
+import { useExtensionAvailable } from '../../Extensions/utils';
 
 import NavItem from './NavItem';
 
@@ -61,6 +62,8 @@ const ColonyNavigation = ({ colony: { colonyAddress, colonyName } }: Props) => {
   const hasNewActions = false;
   const hasNewExtensions = false;
 
+  const { availableExtensionFilter } = useExtensionAvailable();
+
   const items = useMemo<ComponentProps<typeof NavItem>[]>(() => {
     const navigationItems: ComponentProps<typeof NavItem>[] = [
       {
@@ -78,9 +81,13 @@ const ColonyNavigation = ({ colony: { colonyAddress, colonyName } }: Props) => {
     ];
     if (data?.processedColony?.installedExtensions) {
       const { installedExtensions } = data.processedColony;
-      const coinMachineExtension = installedExtensions.find(
-        ({ extensionId }) => extensionId === Extension.CoinMachine,
-      );
+      const coinMachineExtension = installedExtensions
+        /*
+         * @NOTE Temporary disable coin machine and whitelist for anyone other than
+         * the metacolony
+         */
+        .filter(({ extensionId }) => availableExtensionFilter(extensionId))
+        .find(({ extensionId }) => extensionId === Extension.CoinMachine);
       /*
        * Only show the Buy Tokens navigation link if the Coin Machine extension is:
        * - installed
@@ -101,7 +108,13 @@ const ColonyNavigation = ({ colony: { colonyAddress, colonyName } }: Props) => {
     }
 
     return navigationItems;
-  }, [colonyName, hasNewActions, hasNewExtensions, data]);
+  }, [
+    colonyName,
+    hasNewActions,
+    hasNewExtensions,
+    data,
+    availableExtensionFilter,
+  ]);
 
   return (
     <nav role="navigation" className={styles.main}>

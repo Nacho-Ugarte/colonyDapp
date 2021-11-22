@@ -53,3 +53,23 @@ export const getButtonAction = (
 
   return ActionTypes[`${actionBeginning}_ENABLE${actionEnd}`];
 };
+
+export const useExtensionAvailable = () => {
+  const availableExtensionFilter = (extensionName: string) => {
+    if (
+      extensionName === Extension.CoinMachine ||
+      extensionName === Extension.Whitelist
+    ) {
+      /*
+       * If extension matches the logic check above (coin machine OR whitelist) don't show them (filter them out)
+       */
+      return false;
+    }
+    /*
+     * Allow all other extensions, for all other colonies, that don't match
+     * the above (if) logic check
+     */
+    return true;
+  };
+  return { availableExtensionFilter };
+};

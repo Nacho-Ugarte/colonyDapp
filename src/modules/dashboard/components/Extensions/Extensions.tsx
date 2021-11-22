@@ -16,6 +16,7 @@ import extensionData from '~data/staticData/extensionData';
 import styles from './Extensions.css';
 
 import ExtensionCard from './ExtensionCard';
+import { useExtensionAvailable } from './utils';
 
 const MSG = defineMessages({
   title: {
@@ -49,51 +50,61 @@ const Extensions = ({ colonyAddress }: Props) => {
     variables: { address: colonyAddress },
   });
 
+  const { availableExtensionFilter } = useExtensionAvailable();
+
   const { data: networkExtensionData } = useNetworkExtensionVersionQuery();
 
   const installedExtensionsData = useMemo(() => {
     if (data?.processedColony?.installedExtensions) {
       const { installedExtensions } = data.processedColony;
-      return installedExtensions.map(
-        ({ extensionId, address, details: { version } }) => ({
+      return installedExtensions
+        .filter(({ extensionId }) => availableExtensionFilter(extensionId))
+        .map(({ extensionId, address, details: { version } }) => ({
           ...extensionData[extensionId],
           address,
           currentVersion: version,
-        }),
-      );
+        }));
     }
     return [];
-  }, [data]);
+  }, [availableExtensionFilter, data]);
 
   const availableExtensionsData = useMemo(() => {
     if (data?.processedColony?.installedExtensions) {
       const { installedExtensions } = data.processedColony;
-      return extensions.reduce((availableExtensions, extensionName) => {
-        const installedExtension = installedExtensions.find(
-          ({ extensionId }) => extensionName === extensionId,
-        );
-        if (
-          !installedExtension &&
-          networkExtensionData?.networkExtensionVersion
-        ) {
-          const { networkExtensionVersion } = networkExtensionData;
-          const networkExtension = networkExtensionVersion?.find(
-            (extension) =>
-              extension?.extensionHash === getExtensionHash(extensionName),
-          );
-          return [
-            ...availableExtensions,
-            {
-              ...extensionData[extensionName],
-              currentVersion: networkExtension?.version || 0,
-            },
-          ];
-        }
-        return availableExtensions;
-      }, []);
+      return (
+        extensions
+          /*
+           * @NOTE Temporary disable coin machine and whitelist for anyone other than
+           * the metacolony
+           */
+          .filter(availableExtensionFilter)
+          .reduce((availableExtensions, extensionName) => {
+            const installedExtension = installedExtensions.find(
+              ({ extensionId }) => extensionName === extensionId,
+            );
+            if (
+              !installedExtension &&
+              networkExtensionData?.networkExtensionVersion
+            ) {
+              const { networkExtensionVersion } = networkExtensionData;
+              const networkExtension = networkExtensionVersion?.find(
+                (extension) =>
+                  extension?.extensionHash === getExtensionHash(extensionName),
+              );
+              return [
+                ...availableExtensions,
+                {
+                  ...extensionData[extensionName],
+                  currentVersion: networkExtension?.version || 0,
+                },
+              ];
+            }
+            return availableExtensions;
+          }, [])
+      );
     }
     return [];
-  }, [data, networkExtensionData]);
+  }, [availableExtensionFilter, data, networkExtensionData]);
 
   if (loading) {
     return (
