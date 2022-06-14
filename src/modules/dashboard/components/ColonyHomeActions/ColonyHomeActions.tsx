@@ -24,6 +24,7 @@ import ManageReputationDialog from '~dialogs/ManageReputationDialog';
 import ColonyTokenManagementDialog from '~dialogs/ColonyTokenManagementDialog';
 import { SmiteDialog, AwardDialog } from '~dialogs/AwardAndSmiteDialogs';
 import ManageGnosisSafeDialog from '~dialogs/ManageGnosisSafeDialog';
+import AddExistingSafeDialog from '~dialogs/AddExistingSafeDialog';
 
 import { useEnabledExtensions } from '~utils/hooks/useEnabledExtensions';
 
@@ -227,15 +228,15 @@ const ColonyHomeActions = ({ colony, ethDomainId }: Props) => {
       },
     },
     // @todo - ready to be implemented in another PR.
-    // {
-    //   component: AddExistingSafeDialog,
-    //   props: {
-    //     prevStep: 'dashboard.AddExistingSafeDialog',
-    //     colony,
-    //     isVotingExtensionEnabled,
-    //     ethDomainId,
-    //   },
-    // },
+    {
+      component: AddExistingSafeDialog,
+      props: {
+        prevStep: 'dashboard.ManageGnosisSafeDialog',
+        colony,
+        isVotingExtensionEnabled,
+        ethDomainId,
+      },
+    },
     // {
     //   component: RemoveSafeDialog,
     //   props: {
