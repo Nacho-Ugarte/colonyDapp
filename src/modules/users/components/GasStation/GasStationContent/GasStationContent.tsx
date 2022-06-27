@@ -50,6 +50,7 @@ interface Props {
    */
   autoOpenTransaction?: boolean;
   setAutoOpenTransaction?: (boolean) => void;
+  isMobile?: boolean;
 }
 
 const displayName = 'users.GasStation.GasStationContent';
@@ -61,6 +62,7 @@ const GasStationContent = ({
   transactionAndMessageGroups,
   autoOpenTransaction = false,
   setAutoOpenTransaction = () => {},
+  isMobile = false,
 }: Props) => {
   const [selectedGroupIdx, setSelectedGroupIdx] = useState<number>(
     autoOpenTransaction ? 0 : -1,
@@ -118,7 +120,7 @@ const GasStationContent = ({
       className={getMainClasses({}, styles, { isEmpty })}
       data-test="gasStation"
     >
-      {interactive && <GasStationHeader close={close} />}
+      {interactive && <GasStationHeader close={close} isMobile={isMobile} />}
       <div className={styles.transactionsContainer}>
         {isEmpty ? (
           <Heading

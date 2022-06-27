@@ -1,5 +1,5 @@
 import React from 'react';
-import { defineMessages } from 'react-intl';
+import { defineMessages, FormattedMessage } from 'react-intl';
 
 import CopyableAddress from '~core/CopyableAddress';
 import Heading from '~core/Heading';
@@ -8,7 +8,8 @@ import Link from '~core/Link';
 import Numeral from '~core/Numeral';
 import { WALLET_ROUTE } from '~routes/index';
 import { useLoggedInUser } from '~data/index';
-import { DEFAULT_NETWORK_TOKEN } from '~constants';
+import { checkIfNetworkIsAllowed } from '~utils/networks';
+import { DEFAULT_NETWORK_TOKEN, SUPPORTED_NETWORKS } from '~constants';
 
 import styles from './GasStationHeader.css';
 
@@ -17,16 +18,23 @@ const MSG = defineMessages({
     id: 'users.GasStation.GasStationHeader.goToWalletLinkTitle',
     defaultMessage: 'Go to Wallet',
   },
+  network: {
+    id: 'users.GasStation.GasStationHeader.network',
+    defaultMessage: 'Network: {connectedNetwork} (connected)',
+  },
 });
 
 interface Props {
   close?: () => void;
+  isMobile: boolean;
 }
 
 const displayName = 'users.GasStation.GasStationHeader';
+const GasStationHeader = ({ close, isMobile }: Props) => {
+  const { balance, walletAddress, networkId } = useLoggedInUser();
+  const isNetworkAllowed = checkIfNetworkIsAllowed(networkId);
+  const connectedNetwork = SUPPORTED_NETWORKS[networkId || 1].shortName;
 
-const GasStationHeader = ({ close }: Props) => {
-  const { balance, walletAddress } = useLoggedInUser();
   return (
     <div className={styles.main}>
       <div className={styles.walletDetails}>
@@ -40,7 +48,16 @@ const GasStationHeader = ({ close }: Props) => {
           <CopyableAddress>{walletAddress}</CopyableAddress>
         </div>
         <div>
-          <Numeral value={balance} suffix={DEFAULT_NETWORK_TOKEN.symbol} />
+          {isNetworkAllowed && isMobile ? (
+            <span className={styles.connectedNetwork}>
+              <FormattedMessage
+                {...MSG.network}
+                values={{ connectedNetwork }}
+              />
+            </span>
+          ) : (
+            <Numeral value={balance} suffix={DEFAULT_NETWORK_TOKEN.symbol} />
+          )}
         </div>
       </div>
       <div className={styles.actionsContainer}>

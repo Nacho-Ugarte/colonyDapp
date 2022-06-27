@@ -1,3 +1,5 @@
+@value query700 from '~styles/queries.css';
+
 .main {
   display: flex;
   justify-content: space-between;
@@ -32,4 +34,56 @@
 .closeButton {
   composes: button from '~styles/reset.css';
   margin-left: 5px;
+}
+
+@media screen and query700 {
+  .main {
+    border-bottom-width: 1px;
+  }
+
+  .closeButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 26px;
+    width: 26px;
+    border: 1px solid color-mod(var(--dark) alpha(0.65));
+    border-radius: 50%;
+  }
+
+  .closeButton i {
+    transform: scale(1.3);
+  }
+
+  .closeButton svg {
+    fill: color-mod(var(--dark) alpha(0.65));
+  }
+
+  .goToWalletIcon {
+    display: none;
+  }
+
+  .walletDetails {
+    line-height: 0.95;
+  }
+
+  .walletAddress span[class*="MaskedAddress"] {
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .walletAddress span[class*="copyButton"] {
+    display: none;
+  }
+
+  .walletHeading h4 {
+    color: black;
+    letter-spacing: 0.25px;
+  }
+
+  .connectedNetwork {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
 }
