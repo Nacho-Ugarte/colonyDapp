@@ -100,7 +100,7 @@ const CoinMachine = ({
     /*
      * Refetch every minute to try and keep the timers in sync with the chain
      */
-    pollInterval: 60 * 1000,
+    // pollInterval: 60 * 1000,
     fetchPolicy: 'network-only',
   });
 
@@ -111,7 +111,7 @@ const CoinMachine = ({
   } = useCurrentPeriodTokensQuery({
     variables: { colonyAddress },
     fetchPolicy: 'network-only',
-    pollInterval,
+    // pollInterval,
   });
 
   const {
@@ -121,7 +121,7 @@ const CoinMachine = ({
   } = useCoinMachineTotalTokensQuery({
     variables: { colonyAddress },
     fetchPolicy: 'network-only',
-    pollInterval,
+    // pollInterval,
   });
 
   const {
@@ -131,7 +131,7 @@ const CoinMachine = ({
   } = useCoinMachineCurrentPeriodPriceQuery({
     variables: { colonyAddress },
     fetchPolicy: 'network-only',
-    pollInterval,
+    // pollInterval,
   });
 
   const {
@@ -141,7 +141,7 @@ const CoinMachine = ({
   } = useCoinMachineCurrentPeriodMaxUserPurchaseQuery({
     variables: { colonyAddress, userAddress: walletAddress },
     fetchPolicy: 'network-only',
-    pollInterval,
+    // pollInterval,
   });
 
   const hasSaleStarted = !bigNumberify(

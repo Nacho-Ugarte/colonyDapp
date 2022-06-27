@@ -32,6 +32,7 @@ const getBalanceForTokenAndDomain = async (
   tokenAddress: string,
   domainId: number,
 ): Promise<BigNumber> => {
+  console.log('getBalanceForTokenAndDomain() start');
   const { fundingPotId } = await colonyClient.getDomain(domainId);
   const rewardsPotTotal = await colonyClient.getFundingPotBalance(
     fundingPotId,
@@ -41,8 +42,10 @@ const getBalanceForTokenAndDomain = async (
     const nonRewardsPotsTotal = await colonyClient.getNonRewardPotsTotal(
       tokenAddress,
     );
+    console.log('getBalanceForTokenAndDomain() end 1');
     return bigNumberify(nonRewardsPotsTotal.add(rewardsPotTotal).toString());
   }
+  console.log('getBalanceForTokenAndDomain() end 2');
   return bigNumberify(rewardsPotTotal.toString());
 };
 
