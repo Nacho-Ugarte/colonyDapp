@@ -26,7 +26,6 @@ import {
   useColonyFromNameQuery,
   Colony,
   useColonyExtensionsQuery,
-  useBannedUsersQuery,
   useLoggedInUser,
   useUserReputationQuery,
 } from '~data/index';
@@ -115,15 +114,6 @@ const ColonyMembers = () => {
     variables: { address: colonyAddress },
   });
 
-  const {
-    data: bannedMembers,
-    loading: loadingBannedUsers,
-  } = useBannedUsersQuery({
-    variables: {
-      colonyAddress,
-    },
-  });
-
   const [selectedDomainId, setSelectedDomainId] = useState<number>(
     /*
      * @NOTE DomainId param sanitization
@@ -210,7 +200,6 @@ const ColonyMembers = () => {
   if (
     loading ||
     colonyExtensionLoading ||
-    loadingBannedUsers ||
     (colonyData?.colonyAddress &&
       !colonyData.processedColony &&
       !((colonyData.colonyAddress as any) instanceof Error))
@@ -234,7 +223,6 @@ const ColonyMembers = () => {
           {colonyData && colonyData.processedColony && (
             <Members
               colony={colonyData.processedColony}
-              bannedUsers={bannedMembers?.bannedUsers || []}
               selectedDomain={selectedDomain}
               handleDomainChange={setSelectedDomainId}
             />

@@ -9,7 +9,6 @@ import { useTransformer } from '~utils/hooks';
 import {
   Colony,
   useLoggedInUser,
-  BannedUsersQuery,
   useContributorsAndWatchersQuery,
   ColonyContributor,
   ColonyWatcher,
@@ -46,7 +45,6 @@ const MSG = defineMessages({
 
 interface Props {
   colony: Colony;
-  bannedUsers: BannedUsersQuery['bannedUsers'];
   selectedDomain: DomainFieldsFragment | undefined;
   handleDomainChange: React.Dispatch<React.SetStateAction<number>>;
 }
