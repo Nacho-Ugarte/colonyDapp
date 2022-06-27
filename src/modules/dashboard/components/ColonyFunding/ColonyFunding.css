@@ -1,3 +1,4 @@
+@value query700 from '~styles/queries.css';
 
 .main {
   display: grid;
@@ -48,4 +49,135 @@
   height: 100%;
   width: calc(100% - 60px);
   position: relative;
+}
+
+@media screen and query700 {
+  .main {
+    display: block;
+    margin-top: 0;
+  }
+
+  .content {
+    justify-content: flex-start;
+    height: auto;
+    gap: 20px;
+  }
+
+  .titleContainer {
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0 14px;
+    height: 50px;
+  }
+
+  .titleContainer h3 {
+    margin: 0;
+    width: auto;
+  }
+
+  .aside {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+  }
+
+  .banner {
+    margin: 0px;
+  }
+
+  .main ul[class*="CardList_main"] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .main ul[class*="CardList_main"] > div {
+    width: calc(100% - 28px);
+  }
+
+  .main ul[class*="CardList_main"] * {
+    margin: 0;
+  }
+
+  .main li[class*="Card_main"] {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 0px;
+    gap: 10px;
+    box-shadow: none;
+  }
+
+  .main li[class*="Card_main"] div[class*="TokenCard"] {
+    align-items: center;
+    gap: 10px;
+  }
+
+  .main li[class*="Card_main"] > div[class*="cardFooter"] {
+    line-height: 12px;
+  }
+
+  .main ul[class*="SelectListBox"] {
+    width: 200px;
+    top: calc(100% + 2px);
+    right: 0px;
+  }
+
+  .main div[class*="tokenCardContainer"] {
+    padding-bottom: 0;
+  }
+
+  .main div[class*="PopoverWrapper_main"] {
+    width: calc(100%);
+
+    /* @NOTE This is a hack to get the popover to appear in the correct place.
+    * It is normally styled by passing an `offset` prop to the popover, but
+    * this `TokenCard` popover is used in the Wallet page also, so any offset prop would
+    * affect stylings on both pages.
+    */
+    transform: translate(0px, 55px) !important;
+  }
+
+  .main div[class*="InfoPopover_section"] {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    gap: 10px;
+  }
+
+  .main div[class*="InfoPopover_displayName"] {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .main div[class*="InfoPopover_displayName"] figure {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .main div[class*="Avatar_image"] {
+    position: static;
+  }
+
+  .main div[class*="CopyableAddress_main"] {
+    align-items: flex-start;
+    gap: 30px;
+  }
+
+  .main div[class*="CopyableAddress_addressContainer"] {
+    overflow-wrap: anywhere;
+  }
+
+  .main span[class*="CopyableAddress_copyButton"] {
+    padding-right: 10px;
+    line-height: 0px;
+  }
+
+  .main span[class*="CopyableAddress_copyButton"] button {
+    line-height: 10px;
+  }
 }
