@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { FormattedDate, defineMessages, FormattedMessage } from 'react-intl';
 import {
   useParams,
@@ -242,6 +242,10 @@ const ExtensionDetails = ({
         (version: number) => version === parseInt(colonyVersion, 10),
       )
     : false;
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   let tableData;
 
