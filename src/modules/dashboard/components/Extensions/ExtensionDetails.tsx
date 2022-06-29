@@ -14,6 +14,7 @@ import {
   extensionsIncompatibilityMap,
 } from '@colony/colony-js';
 import isEmpty from 'lodash/isEmpty';
+import { useMediaQuery } from 'react-responsive';
 
 import BreadCrumb, { Crumb } from '~core/BreadCrumb';
 import Heading from '~core/Heading';
@@ -47,6 +48,7 @@ import InvisibleCopyableAddress from '~core/InvisibleCopyableAddress';
 import { getAllUserRoles } from '~modules/transformers';
 import { hasRoot } from '~modules/users/checks';
 
+import { query700 as query } from '~styles/queries.css';
 import styles from './ExtensionDetails.css';
 import ExtensionActionButton from './ExtensionActionButton';
 import ExtensionSetup from './ExtensionSetup';
@@ -315,6 +317,8 @@ const ExtensionDetails = ({
     [extension.name, match.url === extensionUrl ? '' : extensionUrl],
   ];
 
+  const isMobile = useMediaQuery({ query });
+
   if (match.path === COLONY_EXTENSION_SETUP_ROUTE) {
     breadCrumbs.push(MSG.setup);
   }
@@ -334,11 +338,18 @@ const ExtensionDetails = ({
     },
   };
 
+  const ExtnHeading = () => (
+    <>
+      <BreadCrumb elements={breadCrumbs} />
+      <hr className={styles.headerLine} />
+    </>
+  );
+
   return (
     <div className={styles.main}>
-      <div>
-        <BreadCrumb elements={breadCrumbs} />
-        <hr className={styles.headerLine} />
+      {isMobile && <ExtnHeading />}
+      <div className={styles.content}>
+        {!isMobile && <ExtnHeading />}
         <div>
           {!extensionCompatible && (
             <Warning
