@@ -28,10 +28,10 @@ const Step2 = ({ nextStep, previousStep, step, wizardForm }) => (
   <Form onSubmit={nextStep} {...wizardForm}>
     {({ values }) => (
       <div>
-        <h1>Step {step}</h1>
+        <h1>Paso {step}</h1>
         <Input name="username" label="username" />
         <Button appearance={{ theme: 'secondary' }} onClick={() => previousStep(values)}>Previous</Button>
-        <Button appearance={{ theme: 'primary' }} type="submit">Next</Button>
+        <Button appearance={{ theme: 'primary' }} type="submit">Siguiente</Button>
       </div>
     )}
   </Form>
@@ -39,9 +39,9 @@ const Step2 = ({ nextStep, previousStep, step, wizardForm }) => (
 
 const Step3 = ({ nextStep, wizardValues }) => (
   <Form onSubmit={() => window.alert(JSON.stringify(wizardValues))}>
-    <pre>Value 1: {wizardValues.email}</pre>
-    <pre>Value 2: {wizardValues.username}</pre>
-    <Button appearance={{ theme: 'danger' }} type="submit">Submit these values</Button>
+    <pre>1er Valor: {wizardValues.email}</pre>
+    <pre>2do Valor: {wizardValues.username}</pre>
+    <Button appearance={{ theme: 'danger' }} type="submit">Envía estos valores</Button>
   </Form>
 );
 const Wizard = withWizard({

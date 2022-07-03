@@ -71,54 +71,54 @@ err() {
 
 # Setup the dapp's env file
 if [ -f "$ENV_FILE" ]; then
-    warn "The Dapp .env file already exists, skipping generating it"
+    warn "El archivo Dapp .env ya existe, omitiendo generarlo"
 else
-    log "Generating the \"Dapp's\" submodule .env file"
+    log "Generando el alrchivo .env submodulo de \"Dapp's\" "
     cp .env.example .env
 fi
 
 # For the submodules that we don't track  changes for, make sure to remove the existing
 # forder first, otherwise the git submodule update won't work
 if [ -f "${ROOT_PATH}/${LIB_PATH}/${SUBGRAPH}/subgraph.yaml" ]; then
-  log "Removing the '${SUBGRAPH}' submodule folder"
+  log "Removiendo la carpeta submodulo '${SUBGRAPH}' "
   rm -Rf "${ROOT_PATH}/${LIB_PATH}/${SUBGRAPH}"
 fi
 
 # Update / re-pull submodules
-log "Initialize submodule libs"
+log "Inicializar bibliotecas de submódulos"
 git submodule update --init --recursive
 
 if [ "$SKIP_COLONY_NETWORK_BUILD" != true ]
 then
     # Build network
-    log "Building '${NETWORK}' submodule"
+    log "Construyendo el submodulo '${NETWORK}'"
     cd "${ROOT_PATH}/${LIB_PATH}/${NETWORK}"
     $YARN --pure-lockfile
     DISABLE_DOCKER=true $YARN provision:token:contracts
     cd ${ROOT_PATH}
 else
-    warn "Skipping '${NETWORK}' submodule provision"
+    warn "Omitiendo la provision del submodulo '${NETWORK}'"
 fi
 
 if [ "$SKIP_SERVER_BUILD" != true ]
 then
-    log "Building '${SERVER}' submodule"
+    log "Construyendo el submodulo '${SERVER}'"
     cd "${ROOT_PATH}/${LIB_PATH}/${SERVER}"
     cp .env.example .env
     mkdir -p mongo-data
     npm install
     cd ${ROOT_PATH}
 else
-    warn "Skipping '${SERVER}' submodule provision"
+    warn "omitiendo la provision del submodulo '${SERVER}'"
 fi
 
 # Subgraph
 if [ "$SKIP_SUBGRAPH_BUILD" != true ]
 then
-    err "If this is your first time installing, \"@graphprotocol/graph-ts\" will take a long time"
-    log "Building the '${SUBGRAPH}' submodule"
+    err "Si es la primera vez que instala, \"@graphprotocol/graph-ts\" llevará mucho tiempo"
+    log "Construyendo el submodulo '${SUBGRAPH}'"
     cd "${ROOT_PATH}/${LIB_PATH}/${SUBGRAPH}"
-    log "Installing the '${SUBGRAPH}' submodule node_modules"
+    log "Instalando el submodulo '${SUBGRAPH}'de node_modules"
     npm install
     cd ${ROOT_PATH}
 else
@@ -128,22 +128,22 @@ fi
 # Graph Node
 if [ "$SKIP_GRAPH_NODE_BUILD" != true ]
 then
-    log "Building the '${GRAPH_NODE}' submodule"
+    log "Construyendo el submodulo '${GRAPH_NODE}'"
     cd "${ROOT_PATH}/${LIB_PATH}/${GRAPH_NODE}"
-    log "Installing the '${GRAPH_NODE}' submodule node_modules"
+    log "Instalando el submodulo '${GRAPH_NODE}' de node_modules"
     npm install
     cd ${ROOT_PATH}
 else
-    warn "Skipping '${GRAPH_NODE}' submodule provision"
+    warn "Omitiendo la provision del submodulo '${GRAPH_NODE}' "
 fi
 
 if [ "$SKIP_REPUTATIONMONITOR" != true ]
 then
-    log "Building the '${REPUTATIONMONITOR}' submodule"
+    log "Construyendo el submodulo '${REPUTATIONMONITOR}' "
     cd "${ROOT_PATH}/${LIB_PATH}/${REPUTATIONMONITOR}"
-    log "Installing the '${REPUTATIONMONITOR}' submodule node_modules"
+    log "Instalando el submodulo '${REPUTATIONMONITOR}' de node_modules"
     npm install
     cd ${ROOT_PATH}
 else
-    warn "Skipping '${REPUTATIONMONITOR}' submodule provision"
+    warn "Omitiendo las provisiones del submodulo '${REPUTATIONMONITOR}' "
 fi

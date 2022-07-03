@@ -79,7 +79,7 @@ export const authenticate = async (wallet) => {
   } catch (error) {
     log.error(error);
     log.debug(
-      `Found invalid JWT, clearing token for address ${wallet.address}`,
+      ` JWT Encontrado no válido, borrando el token para la dirección ${wallet.address}`,
     );
     clearToken(wallet.address);
   }

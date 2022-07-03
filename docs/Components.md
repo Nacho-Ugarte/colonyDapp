@@ -50,7 +50,7 @@ The convention for the `id` naming is the following: `module.ComponentName.[SubC
 ```js static
 labelAddAdmins: {
   id: 'admin.Organizations.OrganizationAddAdmins.labelAddAdmins',
-  defaultMessage: 'Add new admin',
+  defaultMessage: 'Agregar un nuevo admin',
 },
 ```
 

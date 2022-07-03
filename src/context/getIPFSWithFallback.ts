@@ -14,13 +14,13 @@ const getIPFSWithFallback = (ipfsNode?: IPFSNode, pinataClient?: Pinata) => {
         raceAgainstTimeout(
           ipfsNode.getString(hash),
           DEFAULT_TIMEOUT_GET,
-          new Error('Timeout reached trying to get data from IPFS'),
+          new Error('Se agotó el tiempo de espera al intentar obtener datos de IPFS'),
         ),
       addString: async (data) =>
         raceAgainstTimeout(
           ipfsNode.addString(data),
           DEFAULT_TIMEOUT_POST,
-          new Error('Timeout reached trying to upload data to IPFS'),
+          new Error('Se agotó el tiempo de espera al intentar cargar datos en IPFS'),
         ),
     };
   }
@@ -31,13 +31,13 @@ const getIPFSWithFallback = (ipfsNode?: IPFSNode, pinataClient?: Pinata) => {
         raceAgainstTimeout(
           pinataClient.getJSON(hash),
           DEFAULT_TIMEOUT_GET,
-          new Error('Timeout reached trying to get data from IPFS via Pinata'),
+          new Error('Se alcanzó el tiempo de espera al intentar obtener datos de IPFS a través de Pinata'),
         ),
       addString: async (data) =>
         raceAgainstTimeout(
           pinataClient.addJSON(data),
           DEFAULT_TIMEOUT_POST,
-          new Error('Timeout reached trying to upload data to IPFS via Pinata'),
+          new Error('Se alcanzó el tiempo de espera al intentar cargar datos a IPFS a través de Pinata'),
         ),
     };
   }

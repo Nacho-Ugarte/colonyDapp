@@ -106,11 +106,12 @@ addProcess('db', async () => {
     cleanProcess.stdout.pipe(process.stdout);
     cleanProcess.stderr.pipe(process.stderr);
   }
+  /*Original: new Error(`Clean process exited with code ${cleanCode}`)); */
   await new Promise((resolve, reject) => {
     cleanProcess.on('exit', cleanCode => {
       if (cleanCode) {
         dbProcess.kill();
-        return reject(new Error(`Clean process exited with code ${cleanCode}`));
+        return reject(new Error(`Proceso limpio terminado con código ${cleanCode}`));
       }
       const setupProcess = spawn('npm', ['run', 'db:setup'], {
         cwd: path.resolve(__dirname, '..', 'src/lib/colonyServer'),
@@ -118,7 +119,8 @@ addProcess('db', async () => {
       setupProcess.on('exit', setupCode => {
         if (setupCode) {
           dbProcess.kill();
-          return reject(new Error(`Setup process exited with code ${setupCode}`));
+          /* Original: Setup process exited with code */
+          return reject(new Error(`Proceso de configuración terminado con código ${setupCode}`));
         }
         resolve();
       });
@@ -151,11 +153,13 @@ addProcess('server', async () => {
 addProcess('graph-node', async () => {
   await new Promise(resolve => {
     console.log(); // New line
-    console.log('Cleaning up the old graph-node docker data folder. For this we need', chalk.bold.red('ROOT'), 'permissions');
+    /*Original: Cleaning up the old graph-node docker data folder. For this we need', chalk.bold.red('ROOT'), '' */
+    console.log('Limpieza de la antigua carpeta de datos de la ventana acoplable del nodo gráfico. Para esto necesitamos', chalk.bold.red('ROOT'), 'permissions');
     sudo.exec(`rm -Rf ${path.resolve(__dirname, '..', 'src/lib/graph-node/docker/data')}`, {name: 'GraphNodeCleanup'},
       function (error) {
         if (error) {
-          throw new Error(`graph-node cleanup process failed: ${error}`);
+          /*Orignal log:  */
+          throw new Error(`El proceso de limpieza del nodo gráfico falló: ${error}`);
         };
         resolve();
       }
@@ -168,7 +172,8 @@ addProcess('graph-node', async () => {
     });
 
     console.log(); // New line
-    console.log('Setting up docker-compose with the local environment ...');
+    /*Original log: Setting up docker-compose with the local environment ...  */
+    console.log('Configurando la composicion de docker con el entorno local...');
 
     if (args.foreground) {
       setupProcess.stdout.pipe(process.stdout);
@@ -177,7 +182,8 @@ addProcess('graph-node', async () => {
 
     setupProcess.on('exit', errorCode => {
       if (errorCode) {
-        return reject(new Error(`Setup process exited with code ${errorCode}`));
+        /*Original log:  Setup process exited with code*/
+        return reject(new Error(`El proceso de configuración terminado con código ${errorCode}`));
       }
       resolve();
     });
@@ -233,7 +239,8 @@ addProcess('subgraph', async () => {
     });
 
     console.log(); // New line
-    console.log('Generating subgraph types and schema ...');
+    /*Original log: Generating subgraph types and schema ... */
+    console.log('Generando tipos de subgrafos y esquemas...');
 
     if (args.foreground) {
       codeGenProcess.stdout.pipe(process.stdout);
@@ -242,7 +249,8 @@ addProcess('subgraph', async () => {
 
     codeGenProcess.on('exit', errorCode => {
       if (errorCode) {
-        return reject(new Error(`Codegen process exited with code ${errorCode}`));
+        /*Original log: Codegen process exited with code */
+        return reject(new Error(`El proceso Codegen finalizo con el código ${errorCode}`));
       }
       resolve();
     });
@@ -254,7 +262,8 @@ addProcess('subgraph', async () => {
     });
 
     console.log(); // New line
-    console.log('Creating a local subgraph instance ...');
+    /*Original log: Creating a local subgraph instance ... */
+    console.log('Creando una instancia de subgrafo local...');
 
     if (args.foreground) {
       createLocalProcess.stdout.pipe(process.stdout);
@@ -263,7 +272,8 @@ addProcess('subgraph', async () => {
 
     createLocalProcess.on('exit', errorCode => {
       if (errorCode) {
-        return reject(new Error(`Create local process exited with code ${errorCode}`));
+         /*Original log: Create local process exited with code ${errorCode} */
+        return reject(new Error(`Crear proceso local salido con código ${errorCode}`));
       }
       resolve();
     });
@@ -274,7 +284,8 @@ addProcess('subgraph', async () => {
   });
 
   console.log(); // New line
-  console.log('Deploying the local subgraph instance ...');
+  /*Original log: Deploying the local subgraph instance ... */
+  console.log('Desplegando la instancia de subgrafo local...');
 
   if (args.foreground) {
     deployLocalProcess.stdout.pipe(process.stdout);
@@ -340,18 +351,18 @@ const startAll = async () => {
   try {
     await startSerial;
   } catch (caughtError) {
-    console.info(chalk.redBright('Stack start failed.'));
+    console.info(chalk.redBright('El inicio de la pila falló.'));
     console.info(chalk.redBright(caughtError.message));
     process.exit(1);
   }
 
   console.log(); // New line
-  console.info(chalk.bold.green('Stack started successfully.'));
+  console.info(chalk.bold.green('La pila se inició con éxito.'));
 
   console.log(); // New line
   console.log('------------------------------------------------------------');
   console.log(); // New line
-  console.log(chalk.bold('Available Dev Resources:'));
+  console.log(chalk.bold('Recursos de desarrollo disponibles:'));
   console.log(); // New line
   Object.keys(pids)
     .map(pidName => getStaticDevResource(pidName)
@@ -361,7 +372,7 @@ const startAll = async () => {
     );
   if (!pids.webpack) {
     getStaticDevResource('webpack').map(({ desc, res }) =>
-      console.log(chalk.dim(`* ${desc} (after you start 'webpack'):`), chalk.gray(res)),
+      console.log(chalk.dim(`* ${desc} (después de empezar 'webpack'):`), chalk.gray(res)),
     );
   }
   console.log(); // New line
@@ -377,7 +388,7 @@ process.on('SIGINT', () => {
 });
 
 startAll().catch(caughtError => {
-  console.error('Error starting');
+  console.error('Error al iniciar');
   console.error(caughtError);
   process.exit(1);
 });

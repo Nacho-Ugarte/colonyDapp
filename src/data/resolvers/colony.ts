@@ -110,9 +110,9 @@ export const getProcessedColony = async (
     ipfsMetadata = await ipfs.getString(ipfsHash);
   } catch (error) {
     log.verbose(
-      `Could not fetch IPFS metadata for colony:`,
+      `No se pudieron obtener los metadatos de IPFS para la colonia:`,
       ensName,
-      'with hash:',
+      'Con el hash:',
       metadata,
     );
   }
@@ -145,11 +145,11 @@ export const getProcessedColony = async (
          * @NOTE Silent error if avatar hash is null
          */
         if (colonyAvatarHash) {
-          log.verbose('Could not fetch colony avatar', avatar);
+          log.verbose('No se pudo obtener el avatar de la colonia', avatar);
           log.verbose(
-            `Could not parse IPFS avatar for colony:`,
+            `No se pudo analizar el avatar de IPFS para la colonia:`,
             ensName,
-            'with hash:',
+            'Con el hash:',
             colonyAvatarHash,
           );
         }
@@ -157,9 +157,9 @@ export const getProcessedColony = async (
     }
   } catch (error) {
     log.verbose(
-      `Could not parse IPFS metadata for colony:`,
+      `No se pudieron analizar los metadatos de IPFS para la colonia:`,
       ensName,
-      'with object:',
+      'Con el objeto:',
       ipfsMetadata,
     );
   }
@@ -211,9 +211,9 @@ export const getProcessedDomain = async (
     ipfsMetadata = await ipfs.getString(ipfsHash);
   } catch (error) {
     log.verbose(
-      `Could not fetch IPFS metadata for domain:`,
+      `No se pudieron obtener los metadatos de IPFS para el dominio:`,
       domainName,
-      'with hash:',
+      'Con el hash:',
       metadata,
     );
   }
@@ -232,9 +232,9 @@ export const getProcessedDomain = async (
     }
   } catch (error) {
     log.verbose(
-      `Could not parse IPFS metadata for domain:`,
+      `No se pudieron analizar los metadatos de IPFS para el dominio:`,
       domainChainId,
-      'with object:',
+      'con el objeto:',
       ipfsMetadata,
     );
   }
@@ -518,7 +518,7 @@ export const colonyResolvers = ({
           try {
             return getToken({ colonyManager, client }, tokenAddress);
           } catch (error) {
-            console.error('Could not fetch Colony token:', tokenAddress);
+            console.error('No se pudo obtener el token de colonia:', tokenAddress);
             console.error(error);
             return undefined;
           }
@@ -558,7 +558,7 @@ export const colonyResolvers = ({
         const latestBlockNumber = await getLatestSubgraphBlock(apolloClient);
 
         if (colonyClient.clientVersion === ColonyVersion.GoerliGlider) {
-          throw new Error(`Not supported in this version of Colony`);
+          throw new Error(`No compatible con esta versión de Colony`);
         }
 
         const { data } = await apolloClient.query<
