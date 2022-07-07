@@ -64,7 +64,7 @@ export const whitelistResolvers = ({
         return JSON.parse(agreement).agreement;
       } catch (error) {
         log.verbose(
-          `Could not fetch whitelist agreement from IPFS with hash: `,
+          `No se pudo obtener el acuerdo de la lista blanca de IPFS con hash: `,
           agreementHash,
         );
         return null;

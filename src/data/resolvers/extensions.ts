@@ -110,7 +110,7 @@ export const extensionsResolvers = ({
           colonyAddress,
         );
         if (colonyClient.clientVersion === ColonyVersion.GoerliGlider) {
-          throw new Error('Colony version too old');
+          throw new Error('Versión de Colony demasiado vieja');
         }
 
         const { neededColonyPermissions } = extension;

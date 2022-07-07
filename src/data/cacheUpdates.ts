@@ -71,7 +71,7 @@ const cacheUpdates = {
       } catch (e) {
         log.verbose(e);
         log.verbose(
-          'Cannot update the colony subscriptions cache - not loaded yet',
+          'No se puede actualizar el caché de suscripciones de Colony - aún no se ha cargado',
         );
       }
       /*
@@ -118,7 +118,7 @@ const cacheUpdates = {
       } catch (e) {
         log.verbose(e);
         log.verbose(
-          'Cannot update the colony subscriptions cache - not loaded yet',
+          'No se puede actualizar el caché de suscripciones de Colony - aún no se ha cargado',
         );
       }
     };
@@ -174,7 +174,7 @@ const cacheUpdates = {
       } catch (e) {
         log.verbose(e);
         log.verbose(
-          'Cannot update the colony subscriptions cache - not loaded yet',
+          'No se puede actualizar el caché de suscripciones de Colony - aún no se ha cargado',
         );
       }
       /*
@@ -244,7 +244,7 @@ const cacheUpdates = {
       } catch (e) {
         log.verbose(e);
         log.verbose(
-          'Cannot update the colony subscriptions cache - not loaded yet',
+          'No se puede actualizar el caché de suscripciones de Colony - aún no se ha cargado',
         );
       }
     };

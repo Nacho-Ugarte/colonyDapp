@@ -160,7 +160,7 @@ export const eventsResolvers = ({
         }
         return initialValues;
       } catch (error) {
-        log.verbose(`Could not get the event args from: ${args}`);
+        log.verbose(`No se pudieron obtener los argumentos del evento de: ${args}`);
         log.verbose(error);
         return {};
       }

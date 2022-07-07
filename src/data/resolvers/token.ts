@@ -60,7 +60,7 @@ const getTokenData = async (
 
   if (!isAddress(tokenAddress)) {
     // don't bother looking it up if it's an invalid token address
-    throw Error('Invalid token address');
+    throw Error('Dirección de token no válida');
   }
 
   // If we're asking for ETH, just return static data
@@ -84,7 +84,7 @@ const getTokenData = async (
       });
       serverDataResult = data;
     } catch (e) {
-      console.warn(`Server error for token with address ${tokenAddress}`, e);
+      console.warn(`Error del servidor para token con dirección ${tokenAddress}`, e);
     }
 
     const serverData: TokenInfo = serverDataResult
@@ -112,7 +112,7 @@ const getTokenData = async (
       balance: '',
     };
   } catch (error) {
-    console.error('Could not fetch Colony token:', tokenAddress);
+    console.error('No se pudo obtener el token de Colony:', tokenAddress);
     console.error(error);
     return null;
   }

@@ -122,7 +122,7 @@ const getTimeoutPeriods = async (colonyManager, colonyAddress, motionId) => {
       timeLeftToEscalate: timeLeftToEscalate > 0 ? timeLeftToEscalate : 0,
     };
   } catch (error) {
-    console.error('Could not get Voting Reputation extension period values');
+    console.error('No se pudieron obtener los valores del período de extensión de reputación de votante');
     console.error(error);
     return null;
   }
@@ -479,7 +479,7 @@ export const motionsResolvers = ({
         }
         return null;
       } catch (error) {
-        console.error('Could not fetch users vote reward');
+        console.error('No se pudo recuperar la recompensa de voto de los usuarios.');
         console.error(error);
         return null;
       }
@@ -574,7 +574,7 @@ export const motionsResolvers = ({
 
         return hasCurrentUserVoted;
       } catch (error) {
-        console.error('Could not fetch current user vote status');
+        console.error('No se pudo obtener el estado de voto del usuario actual');
         console.error(error);
         return null;
       }
@@ -625,7 +625,7 @@ export const motionsResolvers = ({
         }
         return userVote;
       } catch (error) {
-        console.error('Could not fetch user vote revealed state');
+        console.error('No se pudo recuperar el estado revelado del voto del usuario');
         console.error(error);
         return null;
       }
@@ -702,7 +702,7 @@ export const motionsResolvers = ({
 
         return voteResult;
       } catch (error) {
-        console.error('Could not fetch motion voting results');
+        console.error('No se pudieron obtener los resultados de la votación de movimiento');
         console.error(error);
         return null;
       }
@@ -753,7 +753,7 @@ export const motionsResolvers = ({
           motion,
         );
       } catch (error) {
-        console.error('Could not fetch motion state');
+        console.error('No se pudo obtener el estado de movimiento');
         console.error(error);
         return null;
       }
@@ -768,7 +768,7 @@ export const motionsResolvers = ({
 
         return finalized;
       } catch (error) {
-        console.error('Could not fetch motion finalized state');
+        console.error('No se pudo recuperar el estado de movimiento finalizado');
         console.error(error);
         return null;
       }
@@ -917,7 +917,7 @@ export const motionsResolvers = ({
         };
         return stakerReward;
       } catch (error) {
-        console.error('Could not fetch the rewards for the current staker');
+        console.error('No se pudieron obtener las recompensas para el staker actual');
         console.error(error);
         return null;
       }
@@ -984,7 +984,7 @@ export const motionsResolvers = ({
         }
         return objectionAnnotation;
       } catch (error) {
-        console.error('Could not nay side stake annotation for current motion');
+        console.error('No se pudo rechazar la anotación lateral para el movimiento actual');
         console.error(error);
         return null;
       }
@@ -1028,7 +1028,7 @@ export const motionsResolvers = ({
 
         return motionIdTxHash;
       } catch (error) {
-        console.error('Could not fetch the TxHashes for the motion IDs');
+        console.error('No se pudieron obtener los TxHashes para los ID de movimiento');
         console.error(error);
         return null;
       }

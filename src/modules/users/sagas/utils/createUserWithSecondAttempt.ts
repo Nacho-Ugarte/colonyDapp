@@ -119,7 +119,7 @@ export function* createUserWithSecondAttempt(
     }
     return user;
   } catch (error) {
-    log.verbose(`Could not create metadata entry for user ${username}`, error);
+    log.verbose(`No se pudo crear la entrada de metadatos para el usuario ${username}`, error);
   }
   return undefined;
 }

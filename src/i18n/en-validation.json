@@ -1,20 +1,20 @@
 {
     "mixed": {
-      "equalTo": "${path} must be the same as ${reference}"
+      "equalTo": "${path} debe ser el mismo que ${reference}"
     },
     "number": {
-        "lessThanPot": "Not enough funds in the pot"
+        "lessThanPot": "No hay suficientes fondos"
     },
     "string": {
-        "cid": "This is not a valid CID",
-        "address": "This is not a valid address",
-        "domainName": "This is not a valid domain name",
-        "orbitDBAddress": "This is not a valid OrbitDB address",
-        "ensAddress": "This is not a valid ENS address",
-        "hexString": "The value is not a valid hex string",
-        "hasHexPrefix": "A hex string must be prepended with the 0x prefix"
+        "cid": "Este no es un CID válido",
+        "address": "Esta dirección no es válida",
+        "domainName": "El nombre de dominio no es válido",
+        "orbitDBAddress": "La dirección de OrbitDB no es válida",
+        "ensAddress": "Dirección de ENS inválida",
+        "hexString": "El valor no es una cadena hexadecimal válida",
+        "hasHexPrefix": "Una cadena hexadecimal debe ir precedida del prefijo 0x"
     },
     "array": {
-        "includes": "The values should include ${searchVal}"
+        "includes": "Los valores deben incluir ${searchVal}"
     }
 }

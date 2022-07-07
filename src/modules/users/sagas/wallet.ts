@@ -127,7 +127,7 @@ export function* getWallet(action: Action<ActionTypes.WALLET_CREATE>) {
       return yield call(openGanacheWallet, action);
     default:
       throw new Error(
-        `Method ${method} is not recognized for getting a wallet`,
+        `El metodo ${method} no se reconoce para obtener una billetera`,
       );
   }
 }
